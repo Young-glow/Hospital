@@ -1,0 +1,107 @@
+<!DOCTYPE html>
+<html lang="uk">
+<head>
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <title>Лікар - Лікарняна система</title>
+    <link rel="stylesheet" href="{{ url_for('static', filename='css/style.css') }}">
+</head>
+<body>
+    <div class="header">
+        <div class="header-content">
+            <h1>Кабінет лікаря</h1>
+            <a href="/logout" class="back-btn">Вийти</a>
+        </div>
+    </div>
+
+    <div class="container">
+        <input type="hidden" id="currentDoctorId" value="{{ doctor_id }}">
+        <div id="doctorDashboard">
+            <div class="patient-info-card">
+                <div>
+                    <h3 id="doctorName"></h3>
+                    <p id="doctorSpecialty"></p>
+                </div>
+            </div>
+
+            <div id="declarationsBlock" style="display: none; margin-bottom: 2rem;">
+                <h2 style="color: #2c3e50; margin-bottom: 1rem; padding-bottom: 0.5rem; border-bottom: 2px solid #a8e6cf;">
+                    Пацієнти з деклараціями
+                </h2>
+                <div class="table-container">
+                    <table>
+                        <thead>
+                            <tr>
+                                <th>Прізвище</th>
+                                <th>Ім'я</th>
+                                <th>По батькові</th>
+                                <th>Дата народження</th>
+                                <th>Телефон</th>
+                                <th>Дата підписання декларації</th>
+                            </tr>
+                        </thead>
+                        <tbody id="declarationsTableBody">
+                            <tr>
+                                <td colspan="6" class="loading">Завантаження...</td>
+                            </tr>
+                        </tbody>
+                    </table>
+                </div>
+            </div>
+
+            <div style="margin-bottom: 1.5rem; display: flex; gap: 1rem; align-items: center; flex-wrap: wrap;">
+                <h2 style="color: #2c3e50; margin: 0;">Візити:</h2>
+                <div style="display: flex; gap: 0.5rem;">
+                    <button class="btn btn-primary" onclick="loadVisits('today')" id="filterToday">На сьогодні</button>
+                    <button class="btn btn-secondary" onclick="loadVisits('future')" id="filterFuture">Майбутні</button>
+                    <button class="btn btn-secondary" onclick="loadVisits('past')" id="filterPast">Минулі</button>
+                    <button class="btn btn-secondary" onclick="loadVisits('all')" id="filterAll">Всі</button>
+                </div>
+            </div>
+            <div id="visitsContainer"></div>
+        </div>
+    </div>
+
+    <div id="visitCardModal" class="modal">
+        <div class="modal-content" style="max-width: 900px;">
+            <div class="modal-header">
+                <h2>Картка прийому</h2>
+                <span class="close" onclick="closeVisitCardModal()">&times;</span>
+            </div>
+            <div style="display: grid; grid-template-columns: 1fr 1fr; gap: 2rem;">
+                <div>
+                    <h3 style="color: #2c3e50; margin-bottom: 1rem; padding-bottom: 0.5rem; border-bottom: 2px solid #a8e6cf;">Історія діагнозів</h3>
+                    <div id="diagnosisHistory" class="diagnosis-history">
+                        <div class="loading">Завантаження...</div>
+                    </div>
+                </div>
+                <div>
+                    <h3 style="color: #2c3e50; margin-bottom: 1rem; padding-bottom: 0.5rem; border-bottom: 2px solid #a8e6cf;">Новий діагноз</h3>
+                    <form id="completeVisitForm">
+                        <input type="hidden" id="completeVisitId">
+                        <div class="form-group">
+                            <label>Діагноз *</label>
+                            <textarea id="diagnosisInput" rows="5" required placeholder="Введіть діагноз..."></textarea>
+                        </div>
+                        <div class="form-group">
+                            <label>
+                                <input type="checkbox" id="primaryDiag" checked> Основний діагноз
+                            </label>
+                        </div>
+                        <div class="form-group">
+                            <label>Примітки</label>
+                            <textarea id="visitNotes" rows="3" placeholder="Додаткові примітки..."></textarea>
+                        </div>
+                        <div class="form-actions">
+                            <button type="submit" class="btn btn-primary">Завершити прийом</button>
+                        </div>
+                    </form>
+                </div>
+            </div>
+        </div>
+    </div>
+
+    <script src="{{ url_for('static', filename='js/doctor.js') }}"></script>
+</body>
+</html>
+

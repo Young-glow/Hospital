@@ -1,0 +1,78 @@
+<!DOCTYPE html>
+<html lang="uk">
+<head>
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <title>Головний лікар - Лікарняна система</title>
+    <link rel="stylesheet" href="{{ url_for('static', filename='css/style.css') }}">
+</head>
+<body>
+    <div class="header">
+        <div class="header-content">
+            <h1>Аналітика та звіти</h1>
+            <a href="/logout" class="back-btn">Вийти</a>
+        </div>
+    </div>
+
+    <div class="container">
+        <div class="kpi-container" id="kpiContainer">
+            <div class="kpi-card">
+                <h3>Всього пацієнтів</h3>
+                <div class="kpi-value" id="totalPatients">-</div>
+            </div>
+            <div class="kpi-card">
+                <h3>Візитів за місяць</h3>
+                <div class="kpi-value" id="visitsThisMonth">-</div>
+            </div>
+            <div class="kpi-card">
+                <h3>Лікарів у штаті</h3>
+                <div class="kpi-value" id="totalDoctors">-</div>
+            </div>
+        </div>
+
+        <div class="stats-section">
+            <h2>Рейтинг продуктивності лікарів</h2>
+            <div class="table-container">
+                <table>
+                    <thead>
+                        <tr>
+                            <th>Місце</th>
+                            <th>Лікар</th>
+                            <th>Спеціальність</th>
+                            <th>Кількість візитів</th>
+                        </tr>
+                    </thead>
+                    <tbody id="topDoctorsTableBody">
+                        <tr>
+                            <td colspan="4" class="loading">Завантаження...</td>
+                        </tr>
+                    </tbody>
+                </table>
+            </div>
+        </div>
+
+        <div class="stats-section">
+            <h2>Рейтинг хвороб</h2>
+            <div class="table-container">
+                <table>
+                    <thead>
+                        <tr>
+                            <th>Діагноз</th>
+                            <th>Кількість випадків</th>
+                            <th>% від усіх</th>
+                        </tr>
+                    </thead>
+                    <tbody id="topDiagnosesTableBody">
+                        <tr>
+                            <td colspan="3" class="loading">Завантаження...</td>
+                        </tr>
+                    </tbody>
+                </table>
+            </div>
+        </div>
+    </div>
+
+    <script src="{{ url_for('static', filename='js/chief_doctor.js') }}"></script>
+</body>
+</html>
+
