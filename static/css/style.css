@@ -517,6 +517,32 @@ td {
     box-shadow: 0 6px 15px rgba(136, 216, 163, 0.4);
 }
 
+.btn-cancel {
+    width: 100%;
+    padding: 1rem;
+    font-size: 1.1rem;
+    font-weight: 600;
+    border-radius: 8px;
+    border: none;
+    cursor: pointer;
+    transition: transform 0.2s;
+    margin-top: 1rem;
+    
+    background: linear-gradient(135deg, #ff9a9e 0%, #ff6b6b 100%);
+    color: white;
+    box-shadow: 0 4px 15px rgba(255, 107, 107, 0.3);
+}
+
+.btn-cancel:hover {
+    transform: translateY(-2px);
+    background: linear-gradient(135deg, #ffb5b9 0%, #ff8585 100%);
+    box-shadow: 0 6px 20px rgba(255, 107, 107, 0.4);
+}
+
+.btn-cancel:active {
+    transform: translateY(0);
+}
+
 .error-message {
     background-color: #f8d7da;
     color: #721c24;
@@ -618,4 +644,3 @@ td {
         grid-template-columns: 1fr;
     }
 }
-
