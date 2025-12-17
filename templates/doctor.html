@@ -1,11 +1,13 @@
 <!DOCTYPE html>
 <html lang="uk">
+
 <head>
     <meta charset="UTF-8">
     <meta name="viewport" content="width=device-width, initial-scale=1.0">
     <title>Лікар - Лікарняна система</title>
     <link rel="stylesheet" href="{{ url_for('static', filename='css/style.css') }}">
 </head>
+
 <body>
     <div class="header">
         <div class="header-content">
@@ -25,7 +27,8 @@
             </div>
 
             <div id="declarationsBlock" style="display: none; margin-bottom: 2rem;">
-                <h2 style="color: #2c3e50; margin-bottom: 1rem; padding-bottom: 0.5rem; border-bottom: 2px solid #a8e6cf;">
+                <h2
+                    style="color: #2c3e50; margin-bottom: 1rem; padding-bottom: 0.5rem; border-bottom: 2px solid #a8e6cf;">
                     Пацієнти з деклараціями
                 </h2>
                 <div class="table-container">
@@ -70,13 +73,17 @@
             </div>
             <div style="display: grid; grid-template-columns: 1fr 1fr; gap: 2rem;">
                 <div>
-                    <h3 style="color: #2c3e50; margin-bottom: 1rem; padding-bottom: 0.5rem; border-bottom: 2px solid #a8e6cf;">Історія діагнозів</h3>
+                    <h3
+                        style="color: #2c3e50; margin-bottom: 1rem; padding-bottom: 0.5rem; border-bottom: 2px solid #a8e6cf;">
+                        Історія діагнозів</h3>
                     <div id="diagnosisHistory" class="diagnosis-history">
                         <div class="loading">Завантаження...</div>
                     </div>
                 </div>
                 <div>
-                    <h3 style="color: #2c3e50; margin-bottom: 1rem; padding-bottom: 0.5rem; border-bottom: 2px solid #a8e6cf;">Новий діагноз</h3>
+                    <h3
+                        style="color: #2c3e50; margin-bottom: 1rem; padding-bottom: 0.5rem; border-bottom: 2px solid #a8e6cf;">
+                        Новий діагноз</h3>
                     <form id="completeVisitForm">
                         <input type="hidden" id="completeVisitId">
                         <div class="form-group">
@@ -93,15 +100,29 @@
                             <textarea id="visitNotes" rows="3" placeholder="Додаткові примітки..."></textarea>
                         </div>
                         <div class="form-actions">
-                            <button type="submit" class="btn btn-primary">Завершити прийом</button>
+                            <div class="modal-buttons"
+                                style="display: flex; gap: 15px; justify-content: flex-end; margin-top: 20px;">
+
+                                <div class="modal-buttons" style="display: flex; gap: 15px; margin-top: 20px;">
+                                    <button type="button" class="btn-cancel" onclick="cancelVisit()" style="flex: 1;">
+                                        Скасувати візит
+                                    </button>
+
+                                    <button type="submit" class="login-btn" style="flex: 1;">
+                                        Завершити прийом
+                                    </button>
+                                </div>
+
+                            </div>
                         </div>
-                    </form>
                 </div>
+                </form>
             </div>
         </div>
+    </div>
     </div>
 
     <script src="{{ url_for('static', filename='js/doctor.js') }}"></script>
 </body>
-</html>
 
+</html>
