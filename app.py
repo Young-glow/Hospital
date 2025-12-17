@@ -691,6 +691,39 @@ def get_top_diagnoses():
         cursor.close()
         conn.close()
 
+@app.route('/api/visits/<int:visit_id>/cancel', methods=['POST'])
+@login_required
+def cancel_visit(visit_id):
+    if session.get('role') != 'doctor':
+        return jsonify({'error': 'У вас немає прав скасовувати візити. Зверніться до лікаря.'}), 403
+
+    conn = get_db_connection()
+    if not conn:
+        return jsonify({'error': 'Database connection failed'}), 500
+    
+    try:
+        cursor = conn.cursor()
+    
+        cursor.execute("SELECT doctor_id FROM visits WHERE id = %s", (visit_id,))
+        result = cursor.fetchone()
+    
+        if not result:
+             return jsonify({'error': 'Візит не знайдено'}), 404
+
+        if result[0] != session.get('staff_id'):
+            return jsonify({'error': 'Ви не можете скасувати чужий візит'}), 403
+
+        cursor.execute("UPDATE visits SET status = 'cancelled' WHERE id = %s", (visit_id,))
+        conn.commit()
+        return jsonify({'success': True})
+
+    except Error as e:
+        conn.rollback()
+        return jsonify({'error': str(e)}), 500
+    finally:
+        cursor.close()
+        conn.close()
+
 if __name__ == '__main__':
     # Виконати валідацію візитів при старті додатку (force=True для обов'язкового виконання)
     print("Запуск валідації візитів...")
