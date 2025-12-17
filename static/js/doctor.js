@@ -282,10 +282,40 @@ function closeVisitCardModal() {
     currentVisitId = null;
 }
 
+async function cancelVisit() {
+    if (!confirm('Ви впевнені, що хочете скасувати цей візит?')) {
+        return;
+    }
+
+    const visitId = document.getElementById('completeVisitId').value;
+    
+    try {
+        const response = await fetch(`/api/visits/${visitId}/cancel`, {
+            method: 'POST',
+            headers: {
+                'Content-Type': 'application/json'
+            }
+        });
+        
+        const result = await response.json();
+        
+        if (result.error) {
+            alert('Помилка: ' + result.error);
+            return;
+        }
+        
+        alert('Візит скасовано!');
+        closeVisitCardModal();
+        loadVisits(currentFilter); 
+    } catch (error) {
+        console.error('Error cancelling visit:', error);
+        alert('Помилка при скасуванні візиту');
+    }
+}
+
 window.onclick = function(event) {
     const modal = document.getElementById('visitCardModal');
     if (event.target == modal) {
         closeVisitCardModal();
     }
 }
-
